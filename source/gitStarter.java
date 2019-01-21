@@ -1,0 +1,62 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class gitStarter extends PApplet {
+
+//unzip gitDir+repositoryname.zip
+//rm gitDir+repositoryname.zip
+//mv gitDir+repositoryname repositoryname
+//cd repositoryname
+//git init
+//git remote add origin address
+//git add .
+//git commit -m "firstCommit"
+//git push --set-upstream origin master
+public void setup(){
+  File files=new File("/home/ubuntu/");
+  StringList task=new StringList(),
+    result=new StringList();
+  for(int i=0,j=files.listFiles().length;i<j;i++)
+    if(files.listFiles()[i].toString().indexOf("gitDir+")>=0){
+      task.append(files.listFiles()[i].toString());
+      println("add task:",files.listFiles()[i].toString());
+    }
+  printArray(task);
+  for(int i=0,j=task.size();i<j;i++){
+    String[] tmpName=split(task.get(i),'/');
+    String zipName=tmpName[tmpName.length-1];
+    result.append("unzip "+zipName);
+    result.append("rm "+zipName);
+    String tmpgitName=zipName.substring(0,zipName.length()-4);
+    String name=tmpgitName.substring(7);
+    result.append("mv "+tmpgitName+" "+name);
+    result.append("cd "+name);
+    result.append("git init");
+    result.append("git remote add origin ubuntu@52.79.163.15:"+name);
+    result.append("git add .");
+    result.append("git commit -m \"firstCommit\"");
+    result.append("git push --set-upstream origin master");
+  }
+  saveStrings("initGit.sh",result.array());
+  exit();
+}
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "gitStarter" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
+}

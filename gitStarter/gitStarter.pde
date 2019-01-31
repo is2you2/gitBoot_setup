@@ -26,8 +26,10 @@ void setup(){
     String name=tmpgitName.substring(7);
     result.append("mv "+tmpgitName+" "+name);
     result.append("cd "+name);
+    result.append("eval `ssh-agent -s`");
+    result.append("ssh-add ~/.ssh/your_key");
     result.append("git init");
-    result.append("git remote add origin ubuntu@52.79.163.15:"+name);
+    result.append("git remote add origin ubuntu@ip_address:"+name);
     result.append("git add .");
     result.append("git commit -m \"firstCommit\"");
     result.append("git push --set-upstream origin master");

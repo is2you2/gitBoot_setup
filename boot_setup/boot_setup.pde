@@ -22,8 +22,8 @@ void setup(){
       result.append("cd ~");
     }
   result.append("echo \"boot_setup complete progress\"");
-  result.append("rm run.bash");
-  saveStrings("run.bash",result.array());
+  result.append("rm run.sh");
+  saveStrings("run.sh",result.array());
   exit();
 }
 

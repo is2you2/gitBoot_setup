@@ -35,7 +35,7 @@ void setup(){
     result.append("git config --bool core.bare true");
     result.append("git remote add origin ubuntu@ip_address:"+name);
     result.append("git add .");
-    result.append("git commit -m \"firstCommit\"");
+    result.append("git commit -m \"serverSide firstCommit\"");
     result.append("git push --set-upstream origin master");
   }
   saveStrings("initGit.sh",result.array());

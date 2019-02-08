@@ -24,6 +24,8 @@ void setup(){
     String zipName=tmpName[tmpName.length-1];
     result.append("unzip "+zipName);
     result.append("rm "+zipName);
+    result.append("rm -rf .__MACOSX");
+    result.append("rm -rf .DS_Store");
     String tmpgitName=zipName.substring(0,zipName.length()-4);
     String name=tmpgitName.substring(7);
     result.append("mv "+tmpgitName+" "+name);

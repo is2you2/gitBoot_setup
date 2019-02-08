@@ -4,6 +4,8 @@
 //cd repositoryname
 //git init
 //git remote add origin address
+//git init --bare
+//git config --bool core.bare true
 //git add .
 //git commit -m "firstCommit"
 //git push --set-upstream origin master

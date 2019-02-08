@@ -37,6 +37,7 @@ void setup(){
     result.append("git add .");
     result.append("git commit -m \"serverSide firstCommit\"");
     result.append("git push --set-upstream origin master");
+    result.append("cd ~");
   }
   saveStrings("initGit.sh",result.array());
   exit();

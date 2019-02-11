@@ -32,7 +32,7 @@ void setup(){
     result.append("cd "+name);
     result.append("eval `ssh-agent -s`");
     result.append("ssh-add ~/.ssh/your_key");
-    result.append("git init");
+    result.append("git --bare init");
     result.append("git config --bool core.bare true");
     result.append("git remote add origin ubuntu@ip_address:"+name);
     result.append("git add .");

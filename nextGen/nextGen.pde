@@ -42,7 +42,7 @@ void setup(){
       String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
       shellResult.append("unzip "+fileName);
       shellResult.append("rm -rf "+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file
-      shellResult.append("cd "+fileName);
+      shellResult.append("cd "+fileName.substring(0,fileName.lastIndexOf('.')));
       shellResult.append("echo \".DS_Store\" > .gitignore");
       shellResult.append("echo \"__MACOSX\" > .gitignore");
       shellResult.append("echo \"Thumbs.db\" > .gitignore");

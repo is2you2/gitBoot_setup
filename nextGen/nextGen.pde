@@ -41,13 +41,20 @@ void setup(){
       String tmpString=tmp[i].toString();
       String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
       shellResult.append("unzip "+fileName);
-      shellResult.append("rm -rf "+fileName+" .DS_Store __MACOSX Thumb.db"); // delete file
+      shellResult.append("rm -rf "+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file
       shellResult.append("cd "+fileName);
+      shellResult.append("echo \".DS_Store\" > .gitignore");
+      shellResult.append("echo \"__MACOSX\" > .gitignore");
+      shellResult.append("echo \"Thumbs.db\" > .gitignore");
+      shellResult.append("echo \"*.tmp\" > .gitignore");
+      shellResult.append("echo \"*.tmp.*\" > .gitignore");
+      shellResult.append("echo \"*.log\" > .gitignore");
       shellResult.append("git init"); // init from here
       shellResult.append("git remote add origin "+"ip_address"+":"+fileName.substring(0,fileName.lastIndexOf('.'))); // how to get host ip address
       shellResult.append("git add .");
       shellResult.append("git commit -m \"serverSide autoCommit\"");
       shellResult.append("git push --set-upstream origin master");
+      shellResult.append("git config --bool core.bare true");
       shellResult.append("cd ~");
     }
   }

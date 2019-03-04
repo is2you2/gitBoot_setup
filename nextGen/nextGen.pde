@@ -9,7 +9,7 @@ void setup(){
   
   // get ssh-keys inside ~/.ssh/*.pem
   println("ssh-keys part start");
-  { final File ssh=new File("/Users/sungsoo/.ssh/");
+  { final File ssh=new File("/home/ubuntu/.ssh/");
     print("ssh folder: ");
     printArray(ssh);
     final File[] tmp=ssh.listFiles();
@@ -27,7 +27,7 @@ void setup(){
   println("ssh-add part end");
   // getWork: auto extract & init git (gitDir+*.zip file)
   println("getWork start");
-  File main=new File("/Users/sungsoo/");
+  File main=new File("/home/ubuntu/");
   { final File[] tmp=main.listFiles();
     StringList getDir=new StringList() // catch gitDir+.zip
       ,inited=new StringList(); // will know it has git already

@@ -7,9 +7,9 @@ void setup(){
   shellResult.append("sleep 2");
   shellResult.append("eval `ssh-agent -s`");
   
-  // get ssh-keys
-  { File ssh=new File("/home/ubuntu/.ssh/");
-    File[] tmp=ssh.listFiles();
+  // get ssh-keys inside ~/.ssh/*.pem
+  { final File ssh=new File("/home/ubuntu/.ssh/");
+    final File[] tmp=ssh.listFiles();
     StringList sshKeys=new StringList();
     for(int i=0,j=tmp.length;i<j;i++)
       if(tmp[i].toString().indexOf(".pem")>=0)
@@ -21,15 +21,15 @@ void setup(){
     shellResult.append("echo \"add ssh-keys from ~/.ssh\"");
     shellResult.append("sleep 1");
   }
-  // getWork: auto extract & init git
+  // getWork: auto extract & init git (gitDir+*.zip file)
   File main=new File("/home/ubuntu/");
-  { File[] tmp=main.listFiles();
+  { final File[] tmp=main.listFiles();
     StringList getDir=new StringList() // catch gitDir+.zip
       ,inited=new StringList(); // will know it has git already
     for(int i=0,j=tmp.length;i<j;i++){
-      String tmpString=tmp[i].toString();
-      String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
-      String fileType=tmpString.substring(fileName.lastIndexOf('.'));
+      final String tmpString=tmp[i].toString();
+      final String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
+      final String fileType=tmpString.substring(fileName.lastIndexOf('.'));
       if(fileName.indexOf("gitDir+")==0 && fileType.indexOf("zip")==0)
         getDir.append(tmpString);
       if(hasGit(tmp[i])) // get inited
@@ -38,8 +38,8 @@ void setup(){
     print("getDir zip: ");
     printArray(getDir);
     for(int i=0,j=getDir.size();i<j;i++){ // unzip list
-      String tmpString=tmp[i].toString();
-      String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
+      final String tmpString=tmp[i].toString();
+      final String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
       shellResult.append("unzip "+fileName);
       shellResult.append("rm -rf "+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file
       shellResult.append("cd "+fileName.substring(0,fileName.lastIndexOf('.')));
@@ -58,6 +58,21 @@ void setup(){
       shellResult.append("cd ~");
     }
   }
+  { // auto init all folders
+    final File[] tmp=main.listFiles();
+    StringList dirList=new StringList();
+    for(int i=0,j=tmp.length;i<j;i++)
+      if(tmp[i].isDirectory())
+        dirList.append(tmp[i].toString());
+    print("git config folders: ");
+    printArray(dirList);
+    shellResult.append("sleep 1");
+    for(int i=0,j=dirList.size();i<j;i++){
+      shellResult.append("cd "+dirList.get(i));
+      shellResult.append("git config --bool core.bare true");
+      shellResult.append("cd ~");
+    }
+  }
   shellResult.append("rm run.sh");
   saveStrings("run.sh",shellResult.array());
   exit();
@@ -65,7 +80,7 @@ void setup(){
 
 private boolean hasGit(File dir){
   boolean result=false;
-  File[] tmp=dir.listFiles();
+  final File[] tmp=dir.listFiles();
   for(int i=0,j=tmp.length;i<j;i++)
     if(tmp[i].toString().indexOf(".git")==0){
       println("has .git folder, add order: ", tmp[i]);

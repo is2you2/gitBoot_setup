@@ -8,7 +8,10 @@ void setup(){
   shellResult.append("eval `ssh-agent -s`");
   
   // get ssh-keys inside ~/.ssh/*.pem
-  { final File ssh=new File("/home/ubuntu/.ssh/");
+  println("ssh-keys part start");
+  { final File ssh=new File("/Users/sungsoo/.ssh/");
+    print("ssh folder: ");
+    printArray(ssh);
     final File[] tmp=ssh.listFiles();
     StringList sshKeys=new StringList();
     for(int i=0,j=tmp.length;i<j;i++)
@@ -21,20 +24,23 @@ void setup(){
     shellResult.append("echo \"add ssh-keys from ~/.ssh\"");
     shellResult.append("sleep 1");
   }
+  println("ssh-add part end");
   // getWork: auto extract & init git (gitDir+*.zip file)
-  File main=new File("/home/ubuntu/");
+  println("getWork start");
+  File main=new File("/Users/sungsoo/");
   { final File[] tmp=main.listFiles();
     StringList getDir=new StringList() // catch gitDir+.zip
       ,inited=new StringList(); // will know it has git already
     for(int i=0,j=tmp.length;i<j;i++){
       final String tmpString=tmp[i].toString();
       final String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
-      final String fileType=tmpString.substring(fileName.lastIndexOf('.'));
+      final String fileType=tmpString.substring(fileName.length()-3);
       if(fileName.indexOf("gitDir+")==0 && fileType.indexOf("zip")==0)
         getDir.append(tmpString);
       if(hasGit(tmp[i])) // get inited
         inited.append(tmpString);
     }
+    println("getWork end");
     print("getDir zip: ");
     printArray(getDir);
     for(int i=0,j=getDir.size();i<j;i++){ // unzip list
@@ -80,14 +86,16 @@ void setup(){
 
 private boolean hasGit(File dir){
   boolean result=false;
-  final File[] tmp=dir.listFiles();
-  for(int i=0,j=tmp.length;i<j;i++)
-    if(tmp[i].toString().indexOf(".git")==0){
-      println("has .git folder, add order: ", tmp[i]);
-      result=true;
-      break;
-    }else{
-      println("has no .git: ",tmp[i]);
-    }
+  if(dir.isDirectory()){
+    final File[] tmp=dir.listFiles();
+    for(int i=0,j=tmp.length;i<j;i++)
+      if(tmp[i].toString().indexOf(".git")==0){
+        println("has .git folder, add order: ", tmp[i]);
+        result=true;
+        break;
+      }else{
+        println("has no .git: ",tmp[i]);
+      }
+  }
   return result;
 }

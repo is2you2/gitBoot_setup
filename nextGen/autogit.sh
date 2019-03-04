@@ -1,3 +1,3 @@
-# xvfb-run /home/ubuntu/.exec
-#./run.sh
+xvfb-run /home/ubuntu/.nextGen
+./nextGen
 echo "autogit done!"

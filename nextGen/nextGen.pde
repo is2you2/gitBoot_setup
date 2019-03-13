@@ -68,7 +68,7 @@ void setup(){
     final File[] tmp=main.listFiles();
     StringList dirList=new StringList();
     for(int i=0,j=tmp.length;i<j;i++)
-      if(tmp[i].isDirectory())
+      if(hasGit(tmp[i]))
         dirList.append(tmp[i].toString());
     print("git config folders: ");
     printArray(dirList);

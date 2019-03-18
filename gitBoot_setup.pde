@@ -45,10 +45,10 @@ void setup(){
     printArray(getDir);
     for(int i=0,j=getDir.size();i<j;i++){ // unzip list
       final String tmpString=getDir.get(i).toString();
-      final String fileName=tmpString.substring(tmpString.lastIndexOf('/')+1);
+      final String fileName=tmpString.substring(tmpString.lastIndexOf('/')+1).substring(7);
       println("unzip "+fileName);
-      shellResult.append("unzip "+fileName);
-      shellResult.append("rm -rf "+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file
+      shellResult.append("unzip gitDir+"+fileName);
+      shellResult.append("rm -rf gitDir+"+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file
       println("unzip this~:",fileName.substring(0,fileName.lastIndexOf('.')));
       shellResult.append("cd "+fileName.substring(0,fileName.lastIndexOf('.')));
       shellResult.append("echo \".DS_Store\" > .gitignore");

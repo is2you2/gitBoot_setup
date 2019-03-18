@@ -33,9 +33,9 @@ void setup(){
       ,inited=new StringList(); // will know it has git already
     for(int i=0,j=tmp.length;i<j;i++){
       final String tmpString=tmp[i].toString();
-      final String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
+      final String fileName=tmpString.substring(tmpString.lastIndexOf('/')+1);
       final String fileType=tmpString.substring(fileName.length()-3);
-      if(fileName.indexOf("gitDir+")==0 && fileType.indexOf("zip")==0)
+      if(fileName.indexOf("gitDir+")==0 && fileType.indexOf("zip")>0)
         getDir.append(tmpString);
       if(hasGit(tmp[i])) // get inited
         inited.append(tmpString);
@@ -44,10 +44,12 @@ void setup(){
     print("getDir zip: ");
     printArray(getDir);
     for(int i=0,j=getDir.size();i<j;i++){ // unzip list
-      final String tmpString=tmp[i].toString();
-      final String fileName=tmpString.substring(tmpString.lastIndexOf('/'));
+      final String tmpString=getDir.get(i).toString();
+      final String fileName=tmpString.substring(tmpString.lastIndexOf('/')+1);
+      println("unzip "+fileName);
       shellResult.append("unzip "+fileName);
       shellResult.append("rm -rf "+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file
+      println("unzip this~:",fileName.substring(0,fileName.lastIndexOf('.')));
       shellResult.append("cd "+fileName.substring(0,fileName.lastIndexOf('.')));
       shellResult.append("echo \".DS_Store\" > .gitignore");
       shellResult.append("echo \"__MACOSX\" > .gitignore");
@@ -56,7 +58,7 @@ void setup(){
       shellResult.append("echo \"*.tmp.*\" > .gitignore");
       shellResult.append("echo \"*.log\" > .gitignore");
       shellResult.append("git init"); // init from here
-      shellResult.append("git remote add origin "+"ip_address"+":"+fileName.substring(0,fileName.lastIndexOf('.'))); // how to get host ip address
+      shellResult.append("git remote add origin "+"0.0.0.0"+":"+fileName.substring(0,fileName.lastIndexOf('.'))); // how to get host ip address
       shellResult.append("git add .");
       shellResult.append("git commit -m \"serverSide autoCommit\"");
       shellResult.append("git push --set-upstream origin master");

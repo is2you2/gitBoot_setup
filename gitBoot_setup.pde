@@ -45,7 +45,7 @@ void setup(){
     printArray(getDir);
     for(int i=0,j=getDir.size();i<j;i++){ // unzip list
       final String tmpString=getDir.get(i).toString();
-      final String fileName=tmpString.substring(tmpString.lastIndexOf('/')+1).substring(7);
+      final String fileName=tmpString.substring(tmpString.lastIndexOf('/')+1);
       println("unzip "+fileName);
       shellResult.append("unzip "+fileName);
       shellResult.append("rm -rf "+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file

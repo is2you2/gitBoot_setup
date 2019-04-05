@@ -25,17 +25,17 @@ void setup(){
     shellResult.append("sleep 1");
   }
   println("ssh-add part end");
-  // getWork: auto extract & init git (gitDir+*.zip file)
+  // getWork: auto extract & init git
   println("getWork start");
   File main=new File("/home/ubuntu/");
   { final File[] tmp=main.listFiles();
-    StringList getDir=new StringList() // catch gitDir+.zip
+    StringList getDir=new StringList() 
       ,inited=new StringList(); // will know it has git already
     for(int i=0,j=tmp.length;i<j;i++){
       final String tmpString=tmp[i].toString();
       final String fileName=tmpString.substring(tmpString.lastIndexOf('/')+1);
       final String fileType=tmpString.substring(fileName.length()-3);
-      if(fileName.indexOf("gitDir+")==0 && fileType.indexOf("zip")>0)
+      if(fileType.indexOf("zip")>0)
         getDir.append(tmpString);
       if(hasGit(tmp[i])) // get inited
         inited.append(tmpString);
@@ -47,17 +47,10 @@ void setup(){
       final String tmpString=getDir.get(i).toString();
       final String fileName=tmpString.substring(tmpString.lastIndexOf('/')+1).substring(7);
       println("unzip "+fileName);
-      shellResult.append("unzip gitDir+"+fileName);
-      shellResult.append("rm -rf gitDir+"+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file
+      shellResult.append("unzip "+fileName);
+      shellResult.append("rm -rf "+fileName+" .DS_Store __MACOSX Thumbs.db"); // delete file
       println("unzip this~:",fileName.substring(0,fileName.lastIndexOf('.')));
       shellResult.append("cd "+fileName.substring(0,fileName.lastIndexOf('.')));
-      shellResult.append("echo \".DS_Store\" > .gitignore");
-      shellResult.append("echo \"__MACOSX\" > .gitignore");
-      shellResult.append("echo \"Thumbs.db\" > .gitignore");
-      shellResult.append("echo \"*.tmp\" > .gitignore");
-      shellResult.append("echo \"*.tmp.*\" > .gitignore");
-      shellResult.append("echo \"*.log\" > .gitignore");
-      shellResult.append("git init"); // init from here
       shellResult.append("git remote add origin "+"0.0.0.0"+":"+fileName.substring(0,fileName.lastIndexOf('.'))); // how to get host ip address
       shellResult.append("git add .");
       shellResult.append("git commit -m \"serverSide autoCommit\"");
@@ -95,8 +88,6 @@ private boolean hasGit(File dir){
         println("has .git folder, add order: ", tmp[i]);
         result=true;
         break;
-      }else{
-        println("has no .git: ",tmp[i]);
       }
   }
   return result;

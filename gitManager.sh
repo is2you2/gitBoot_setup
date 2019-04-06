@@ -71,6 +71,13 @@ EOF
     ssh ubuntu@0.0.0.0 ls
     echo ""
     read -e -p "불러올 프로젝트의 이름을 적어주세요. (대소문자 구분 필요해요) : " NAME
+    if [$NAME == ""];
+    then
+    echo ""
+    echo "이름 자리에 공란이 되면 안되어요 ... !"
+    echo ""
+    exit
+    fi
     echo ""
     echo "가져올 프로젝트의 이름은 $NAME"
     sleep 1

@@ -58,7 +58,7 @@ EOF
     echo "서버측 폴더 확인:"
     ssh ubuntu@0.0.0.0 ls -l | grep $NAME
     echo ""
-    echo "서버에 정상적으로 업로드 되었습니다 :D"
+    echo "확인해주세요 :D"
     echo ""
     ls -l | grep $NAME
     echo ""

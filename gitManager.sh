@@ -31,7 +31,7 @@ EOF
     fi
     echo ""
     echo "   업로드할 프로젝트 폴더 이름은 $NAME"
-    echo "* 업로드 진행 중에 파일 수정을 하거나 이 터미널을 종료하면 곤란해요!"
+    echo "* 업로드 진행 중에 파일을 수정 하거나 이 터미널을 종료하면 곤란해요!"
     sleep 5
     echo ""
     echo "업로드 작업 시작!"
@@ -58,6 +58,7 @@ EOF
     echo "서버측 폴더 확인:"
     ssh ubuntu@0.0.0.0 ls -l | grep $NAME
     echo ""
+    echo "이 컴퓨터의 폴더 확인:"
     ls -l | grep $NAME
     echo ""
     echo "확인해주세요 :D"

@@ -58,11 +58,9 @@ EOF
     echo "서버측 폴더 확인:"
     ssh ubuntu@0.0.0.0 ls -l | grep $NAME
     echo ""
-    echo "확인해주세요 :D"
-    echo ""
     ls -l | grep $NAME
     echo ""
-    echo "혹시 몰라 백업을 두었으니 확인하세요~"
+    echo "확인해주세요 :D"
     echo ""
     exit
     ;;

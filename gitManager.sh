@@ -19,14 +19,21 @@ EOF
     "1")  echo ""
     echo "새 프로젝트를 등록할 예정입니다."
     echo ""
-    sleep 1
     ls
     echo ""
     read -e -p "등록할 프로젝트 폴더 이름을 적어주세요. (대소문자 구분 필요해요) : " NAME
+    if [$NAME == ""];
+    then
+    echo ""
+    echo "이름 자리에 공란이 되면 안되어요 ... !"
+    echo ""
+    exit
+    fi
     echo ""
     echo "   업로드할 프로젝트 폴더 이름은 $NAME"
     echo "* 업로드 진행 중에 파일 수정을 하거나 이 터미널을 종료하면 곤란해요!"
     sleep 5
+    echo ""
     echo "업로드 작업 시작!"
     zip $NAME $NAME/*
     scp $NAME.zip ubuntu@0.0.0.0:
@@ -38,6 +45,7 @@ EOF
     echo "업로드 작업 끝!"
     echo ""
     echo "해당 프로젝트를 서버에 연결시킵니다.."
+    echo ""
     git clone ubuntu@0.0.0.0:$NAME
     mv $NAME-orig/.gitignore $NAME/.gitignore
     cd $NAME
@@ -52,6 +60,9 @@ EOF
     echo ""
     echo "서버에 정상적으로 업로드 되었습니다 :D"
     echo ""
+    ls -l | grep $NAME
+    echo ""
+    echo "혹시 몰라 백업을 두었으니 확인하세요~"
     exit
     ;;
     "2")  echo ""

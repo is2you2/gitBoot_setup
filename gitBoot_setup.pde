@@ -52,10 +52,14 @@ void setup(){
       println("unzip this~:",fileName.substring(0,fileName.lastIndexOf('.')));
       shellResult.append("cd "+fileName.substring(0,fileName.lastIndexOf('.')));
       shellResult.append("git remote add origin "+"0.0.0.0"+":"+fileName.substring(0,fileName.lastIndexOf('.'))); // how to get host ip address
+      shellResult.append("mv .gitignore .gitignore_orig");
+      shellResult.append("git init");
       shellResult.append("git add .");
       shellResult.append("git commit -m \"serverSide autoCommit\"");
       shellResult.append("git push --set-upstream origin master");
       shellResult.append("git config --bool core.bare true");
+      shellResult.append("rm .gitignore");
+      shellResult.append("mv .gitignore_orig .gitignore");
       shellResult.append("cd ~");
     }
   }

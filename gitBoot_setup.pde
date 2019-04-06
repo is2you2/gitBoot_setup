@@ -8,22 +8,7 @@ void setup(){
   shellResult.append("eval `ssh-agent -s`");
   
   // get ssh-keys inside ~/.ssh/*.pem
-  println("ssh-keys part start");
-  { final File ssh=new File("/home/ubuntu/.ssh/");
-    print("ssh folder: ");
-    printArray(ssh);
-    final File[] tmp=ssh.listFiles();
-    StringList sshKeys=new StringList();
-    for(int i=0,j=tmp.length;i<j;i++)
-      if(tmp[i].toString().indexOf(".pem")>=0)
-        sshKeys.append(tmp[i].toString());
-    print("get ssh-keys: ");
-    printArray(sshKeys);
-    for(int i=0,j=sshKeys.size();i<j;i++)
-      shellResult.append("ssh-add "+sshKeys.get(i));
-    shellResult.append("echo \"add ssh-keys from ~/.ssh\"");
-    shellResult.append("sleep 1");
-  }
+  shellResult.append("ssh-add ~/.ssh/*.pem");
   println("ssh-add part end");
   // getWork: auto extract & init git
   println("getWork start");

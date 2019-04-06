@@ -63,6 +63,7 @@ EOF
     ls -l | grep $NAME
     echo ""
     echo "혹시 몰라 백업을 두었으니 확인하세요~"
+    echo ""
     exit
     ;;
     "2")  echo ""

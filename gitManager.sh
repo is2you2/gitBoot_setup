@@ -92,7 +92,7 @@ EOF
     pwd
     ls -l | grep $NAME
     echo ""
-    echo "서버에서 정상적으로 다운받았습니다. :)"
+    echo "확인해주세요. :)"
     echo ""
     exit  ;;
     "q")  echo ""

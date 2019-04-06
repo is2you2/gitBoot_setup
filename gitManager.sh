@@ -98,6 +98,11 @@ EOF
     echo "오늘 하루도 화이팅! :)"
     echo ""
     exit   ;; 
+    "") echo ""
+    echo "작업 번호를 입력해주세요~~"
+    echo ""
+    exit
+    ;;
      * )  echo ""
      echo "이거 말구요~!: $REPLY"     ;;
     esac

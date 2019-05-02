@@ -1,3 +1,5 @@
+# @0.0.0.0 <- 이 문구를 확인하여 서버 ip주소로 바꾸셔야 합니다.
+
 ssh-add ~/.ssh/*.pem
 while :
 do
@@ -30,29 +32,22 @@ EOF
     exit
     fi
     echo ""
-    echo "   업로드할 프로젝트 폴더 이름은 $NAME"
-    echo "* 업로드 진행 중에 파일을 수정 하거나 이 터미널을 종료하면 곤란해요!"
+    echo "   등록할 프로젝트 폴더 이름은 $NAME"
+    echo "* 등록 진행 중에 파일을 수정 하거나 이 터미널을 종료하면 곤란해요!"
     sleep 5
     echo ""
-    echo "업로드 작업 시작!"
-    zip $NAME $NAME/*
-    scp $NAME.zip ubuntu@0.0.0.0:
-    rm $NAME.zip
-    mv $NAME $NAME-orig
-    ssh ubuntu@0.0.0.0 ./autogit.sh
+    echo "등록 작업 시작!"
+    ssh ubuntu@0.0.0.0 "ssh-add ~/.ssh/*;mkdir $NAME;cd $NAME;git init;git remote add origin ubuntu@0.0.0.0:$NAME;git config --bool core.bare true;git remote -v"
     echo ""
     echo ""
-    echo "업로드 작업 끝!"
+    echo "등록 작업 끝!"
     echo ""
-    echo "해당 프로젝트를 서버에 연결시킵니다.."
+    echo "해당 프로젝트를 서버에 동기화합니다.."
     echo ""
-    git clone ubuntu@0.0.0.0:$NAME
-    mv $NAME-orig/.gitignore $NAME/.gitignore
     cd $NAME
-    git rm -rf --cached .
-    git add .
-    git commit -m "gitIgore apply autoCommit"
-    git push
+    git remote add origin ubuntu@0.0.0.0:$NAME
+    git remote -v
+    git push --set-upstream origin master
     cd ..
     echo ""
     echo "서버측 폴더 확인:"

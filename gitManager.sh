@@ -1,4 +1,5 @@
 # @0.0.0.0 <- 이 문구를 확인하여 서버 ip주소로 바꾸셔야 합니다.
+# origin 재설정됩니다. 참고...*
 
 ssh-add ~/.ssh/*.pem
 while :
@@ -45,6 +46,7 @@ EOF
     echo "해당 프로젝트를 서버에 동기화합니다.."
     echo ""
     cd $NAME
+    git remote remove origin
     git remote add origin ubuntu@0.0.0.0:$NAME
     git remote -v
     git push --set-upstream origin master

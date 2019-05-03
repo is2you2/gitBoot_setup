@@ -38,7 +38,7 @@ EOF
     sleep 5
     echo ""
     echo "등록 작업 시작!"
-    ssh ubuntu@0.0.0.0 "ssh-add ~/.ssh/*;mkdir $NAME;cd $NAME;git init;git remote add origin ubuntu@0.0.0.0:$NAME;git config --bool core.bare true;git remote -v"
+    ssh ubuntu@0.0.0.0 "ssh-add ~/.ssh/*.pem;mkdir $NAME;cd $NAME;git init;git remote add origin ubuntu@0.0.0.0:$NAME;git config --bool core.bare true;git remote -v"
     echo ""
     echo ""
     echo "등록 작업 끝!"
